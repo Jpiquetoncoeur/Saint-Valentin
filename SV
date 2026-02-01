@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Question très très importante 💖</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: radial-gradient(circle at top, #ff758c, #ff7eb3);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      text-align: center;
+      max-width: 420px;
+      position: relative;
+    }
+
+    h1 {
+      color: #e63946;
+      margin-bottom: 10px;
+    }
+
+    .timer {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      margin-top: 30px;
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 16px;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+      position: absolute;
+    }
+
+    .yes {
+      background: #e63946;
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+    }
+
+    .yes:hover {
+      background: #d62839;
+    }
+
+    .no {
+      background: #ddd;
+      color: #666;
+      top: 0;
+      left: 30%;
+    }
+
+    .final {
+      display: none;
+      font-size: 22px;
+      color: #e63946;
+      margin-top: 20px;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Apathe, veux-tu être ma Valentine ? 💘</h1>
+    <p>     (La réponse est irréversible.)</p>
+    <div class="timer">Temps restant pour réfléchir : <span id="time">30</span>s</div>
+
+    <div class="buttons">
+      <button class="yes" onclick="accept()">Oui 😍</button>
+      <button class="no" id="no">Non 😬</button>
+    </div>
+
+    <div class="final" id="final">
+      💖 EXCELLENT CHOIX 💖<br>
+      😘👨‍🍳
+    </div>
+  </div>
+
+<script>
+  // Bouton NON qui fuit
+  const noBtn = document.getElementById("no");
+
+  noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 250;
+    const y = Math.random() * 80;
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // Compteur de pression
+  let time = 30;
+  const timerEl = document.getElementById("time");
+
+  const countdown = setInterval(() => {
+    time--;
+    timerEl.textContent = time;
+
+    if (time === 0) {
+      clearInterval(countdown);
+      accept();
+    }
+  }, 1000);
+
+  // Acceptation inévitable
+  function accept() {
+    document.querySelector(".buttons").style.display = "none";
+    document.querySelector(".timer").style.display = "none";
+    document.getElementById("final").style.display = "block";
+    launchHearts();
+  }
+
+  // Pluie de cœurs
+  function launchHearts() {
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement("div");
+      heart.textContent = "💖";
+      heart.style.position = "fixed";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.top = "-20px";
+      heart.style.fontSize = "24px";
+      heart.style.animation = `fall ${Math.random() * 2 + 3}s linear`;
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+  }
+
+  const style = document.createElement("style");
+  style.innerHTML = `
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+</script>
+
+</body>
+</html>
